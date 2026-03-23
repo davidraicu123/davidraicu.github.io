@@ -1,6 +1,385 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>Hello, I'm David</h1>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>David Raicu — Business Student & Builder</title>
+  <meta name="description" content="David Raicu is a BBA student at Wilfrid Laurier University with a Computer Science minor. Curious about strategy, technology, and what makes things people care about." />
+  <meta name="keywords" content="David Raicu, Laurier, Lazaridis, business student, case competition, portfolio" />
+  <meta name="author" content="David Raicu" />
+
+  <!-- Open Graph (LinkedIn previews) -->
+  <meta property="og:title" content="David Raicu — Portfolio" />
+  <meta property="og:description" content="Business student, CS minor, case competitor, photographer." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://davidraicu123.github.io/davidraicu.github.io/" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">David Raicu</a>
+
+    <ul class="nav-links" id="desktop-nav">
+      <li><a href="#about" data-section="about">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        About
+      </a></li>
+      <li><a href="#timeline" data-section="timeline">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="3" x2="12" y2="21"/><circle cx="12" cy="7" r="2"/><line x1="12" y1="7" x2="18" y2="7"/><circle cx="12" cy="13" r="2"/><line x1="12" y1="13" x2="6" y2="13"/><circle cx="12" cy="19" r="2"/></svg>
+        Timeline
+      </a></li>
+      <li><a href="#photography" data-section="photography">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="15" rx="2"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8 6l1.5-3h5L16 6"/></svg>
+        Photos
+      </a></li>
+      <li><a href="#thoughts" data-section="thoughts">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Thoughts
+      </a></li>
+      <li><a href="#contact" data-section="contact">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
+        Contact
+      </a></li>
+      <li>
+        <button id="theme-toggle" title="Toggle theme" onclick="toggleTheme()">
+          <span id="theme-icon">◐</span>
+        </button>
+      </li>
+    </ul>
+
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button id="theme-toggle-mob" class="nav-links" style="display:none" onclick="toggleTheme()">◐</button>
+      <button id="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div id="mobile-nav">
+  <a href="#about" onclick="toggleMobileNav()">
+    <svg class="mob-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    About
+  </a>
+  <a href="#timeline" onclick="toggleMobileNav()">
+    <svg class="mob-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="3" x2="12" y2="21"/><circle cx="12" cy="7" r="2"/><line x1="12" y1="7" x2="18" y2="7"/><circle cx="12" cy="13" r="2"/><line x1="12" y1="13" x2="6" y2="13"/><circle cx="12" cy="19" r="2"/></svg>
+    Timeline
+  </a>
+  <a href="#photography" onclick="toggleMobileNav()">
+    <svg class="mob-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="15" rx="2"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8 6l1.5-3h5L16 6"/></svg>
+    Photos
+  </a>
+  <a href="#thoughts" onclick="toggleMobileNav()">
+    <svg class="mob-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Thoughts
+  </a>
+  <a href="#contact" onclick="toggleMobileNav()">
+    <svg class="mob-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
+    Contact
+  </a>
+  <div style="margin-top:auto;padding-top:24px;">
+    <button onclick="toggleTheme();toggleMobileNav();" style="font-family:var(--font-body);font-size:0.85rem;color:var(--text3);background:none;border:none;cursor:pointer;">
+      Toggle dark / light mode
+    </button>
+  </div>
+</div>
+
+<!-- Side nav dots -->
+<nav id="side-nav">
+  <div class="side-dot" data-target="hero"        data-label="Top"></div>
+  <div class="side-dot" data-target="about"       data-label="About"></div>
+  <div class="side-dot" data-target="timeline"    data-label="Timeline"></div>
+  <div class="side-dot" data-target="photography" data-label="Photos"></div>
+  <div class="side-dot" data-target="thoughts"    data-label="Thoughts"></div>
+  <div class="side-dot" data-target="contact"     data-label="Contact"></div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero" class="section">
+  <div class="hero-content">
+    <p class="hero-greeting">Welcome</p>
+    <h1 class="hero-name">Hi, I'm <em>David</em><br>Raicu.</h1>
+    <p class="hero-sub">BBA student at Laurier. CS minor. Curious about strategy, technology, and the space where business meets building.</p>
+    <div class="scroll-cta" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+      Scroll to explore
+      <div class="scroll-arrow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section id="about" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">About me</p>
+    <div class="about-grid reveal">
+      <div>
+        <h2 class="about-headline" id="about-headline"></h2>
+        <p class="about-bio" id="about-bio"></p>
+        <p class="about-detail"><strong>Currently curious about:</strong></p>
+        <div class="curiosities" id="curiosities"></div>
+      </div>
+      <div>
+        <p class="about-detail" style="margin-bottom:4px"><strong>Ambitions</strong></p>
+        <p class="about-bio" style="margin-bottom:24px" id="about-ambitions"></p>
+        <p class="about-detail"><strong>Favourite food</strong></p>
+        <p class="about-bio" id="about-food"></p>
+        <div class="skills-grid" id="skills-grid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TIMELINE
+     ============================================================ -->
+<section id="timeline">
+  <div class="timeline-header reveal">
+    <p class="section-label">Everything I've done</p>
+    <h2 class="timeline-headline">The timeline.</h2>
+    <div class="timeline-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--accent-pro)"></div>
+        Professional &amp; academic
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--accent-life)"></div>
+        Life &amp; personal
+      </div>
+    </div>
+  </div>
+  <div class="timeline-body" id="timeline-body">
+    <div class="tl-spine"></div>
+    <!-- injected by JS -->
+  </div>
+</section>
+
+<!-- ============================================================
+     PHOTOGRAPHY
+     ============================================================ -->
+<section id="photography" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">Photography</p>
+    <h2 class="about-headline reveal">Through the lens.</h2>
+    <p class="about-bio reveal">I shoot mostly people and places. Still learning, always looking.</p>
+    <div class="photo-grid reveal" id="photo-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THOUGHTS
+     ============================================================ -->
+<section id="thoughts" class="section">
+  <div class="section-inner">
+    <p class="section-label reveal">What's keeping me up</p>
+    <h2 class="thoughts-headline reveal">Questions I can't<br><em style="font-family:var(--font-display)">stop thinking about.</em></h2>
+    <div class="thought-list reveal" id="thought-list"></div>
+
+    <!-- Song of the week -->
+    <div style="margin-top:64px">
+      <p class="section-label">Song of the week</p>
+      <a class="song-card reveal" id="song-card" href="#" target="_blank" rel="noopener">
+        <div class="song-icon">♫</div>
+        <div class="song-info">
+          <div class="song-label">Now in my head</div>
+          <div class="song-title" id="song-title"></div>
+          <div class="song-artist" id="song-artist"></div>
+          <div class="song-why" id="song-why"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section id="contact" class="section">
+  <div class="section-inner" style="text-align:center">
+    <p class="section-label reveal">Say hi</p>
+    <h2 class="contact-headline reveal">Let's connect.</h2>
+    <p class="contact-sub reveal">Always open to interesting conversations, opportunities, and good ideas.</p>
+    <div class="contact-links reveal">
+      <a href="mailto:david.raicu@email.com" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email me
+      </a>
+      <a href="https://linkedin.com/in/davidraicu" target="_blank" rel="noopener" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v8M7 7v.01M11 18v-5c0-1.1.9-2 2-2s2 .9 2 2v5M17 18v-5"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/davidraicu123" target="_blank" rel="noopener" class="contact-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+    </div>
+    <p class="footer-note">Built by David Raicu · Waterloo, Ontario</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="data.js"></script>
+<script>
+// ── Theme ──────────────────────────────────────────────────
+function getTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved) return saved;
+  const hour = new Date().toLocaleString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', hour12: false });
+  return (parseInt(hour) >= 20 || parseInt(hour) < 6) ? 'dark' : 'light';
+}
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('theme-icon').textContent = t === 'dark' ? '○' : '◐';
+  localStorage.setItem('theme', t);
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+applyTheme(getTheme());
+
+// ── Mobile nav ────────────────────────────────────────────
+function toggleMobileNav() {
+  const nav = document.getElementById('mobile-nav');
+  nav.classList.toggle('open');
+}
+
+// ── Populate About ────────────────────────────────────────
+document.getElementById('about-headline').textContent = ABOUT_DATA.name + '.';
+document.getElementById('about-bio').textContent = ABOUT_DATA.bio;
+document.getElementById('about-ambitions').textContent = ABOUT_DATA.ambitions;
+document.getElementById('about-food').textContent = ABOUT_DATA.favFood;
+
+const curiosEl = document.getElementById('curiosities');
+ABOUT_DATA.curiosities.forEach(c => {
+  curiosEl.innerHTML += `<div class="curiosity-item"><div class="curiosity-dot"></div><span>${c}</span></div>`;
+});
+
+const skillsEl = document.getElementById('skills-grid');
+ABOUT_DATA.skills.forEach(s => {
+  skillsEl.innerHTML += `<span class="skill-pill">${s}</span>`;
+});
+
+// ── Build Timeline ────────────────────────────────────────
+(function buildTimeline() {
+  const container = document.getElementById('timeline-body');
+  const spine = container.querySelector('.tl-spine');
+
+  let currentYear = null;
+
+  TIMELINE_DATA.forEach((entry, i) => {
+    if (entry.year !== currentYear) {
+      currentYear = entry.year;
+      const ym = document.createElement('div');
+      ym.className = 'tl-year-marker reveal';
+      ym.textContent = entry.year;
+      container.appendChild(ym);
+    }
+
+    const wrap = document.createElement('div');
+    wrap.className = `tl-entry type-${entry.type} reveal`;
+
+    const imgSrc = entry.photo || '';
+    const imgTag = imgSrc
+      ? `<img class="tl-card-img" src="${imgSrc}" alt="${entry.title}" loading="lazy" onerror="this.style.display='none'">`
+      : `<div class="tl-card-img"></div>`;
+
+    wrap.innerHTML = `
+      <div class="tl-marker">
+        <div class="tl-dot"></div>
+        <div class="tl-tick"></div>
+      </div>
+      <div class="tl-date-label">${entry.date}</div>
+      <a class="tl-card" href="experience.html?id=${entry.id}">
+        ${imgTag}
+        <div class="tl-card-body">
+          <div class="tl-card-tag">${entry.tag}</div>
+          <div class="tl-card-title">${entry.title}</div>
+          <div class="tl-card-cta">
+            See more
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>`;
+
+    container.appendChild(wrap);
+  });
+})();
+
+// ── Photography Grid ──────────────────────────────────────
+(function buildPhotos() {
+  const grid = document.getElementById('photo-grid');
+  PHOTOGRAPHY_DATA.forEach(p => {
+    grid.innerHTML += `
+      <div class="photo-grid-item">
+        <img src="${p.src}" alt="${p.caption || 'Photo'}" loading="lazy">
+      </div>`;
+  });
+})();
+
+// ── Thoughts ──────────────────────────────────────────────
+(function buildThoughts() {
+  const list = document.getElementById('thought-list');
+  KEEPING_ME_UP.forEach((q, i) => {
+    list.innerHTML += `
+      <div class="thought-item">
+        <span class="thought-num">0${i+1}</span>
+        <span class="thought-text">${q}</span>
+      </div>`;
+  });
+})();
+
+// ── Song of the week ──────────────────────────────────────
+(function buildSong() {
+  document.getElementById('song-title').textContent = SONG_OF_WEEK.title;
+  document.getElementById('song-artist').textContent = SONG_OF_WEEK.artist;
+  document.getElementById('song-why').textContent = SONG_OF_WEEK.why;
+  document.getElementById('song-card').href = SONG_OF_WEEK.link;
+})();
+
+// ── Scroll reveal ─────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Side nav dots ─────────────────────────────────────────
+const sections = ['hero','about','timeline','photography','thoughts','contact'];
+const dots = document.querySelectorAll('.side-dot');
+dots.forEach(d => {
+  d.addEventListener('click', () => {
+    document.getElementById(d.dataset.target).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+const secObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      dots.forEach(d => d.classList.toggle('active', d.dataset.target === e.target.id));
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.classList.toggle('active', a.dataset.section === e.target.id);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) secObserver.observe(el);
+});
+</script>
+</body>
 </html>

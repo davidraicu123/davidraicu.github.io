@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experience — David Raicu</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">David Raicu</a>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <span id="theme-icon">◐</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="exp-hero" id="exp-hero">
+  <img class="exp-hero-bg" id="exp-hero-bg" src="" alt="" />
+  <div class="exp-hero-content">
+    <a href="index.html#timeline" class="exp-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to timeline
+    </a>
+    <div class="exp-tag-badge" id="exp-tag-badge"></div>
+    <h1 class="exp-title" id="exp-title"></h1>
+    <p class="exp-date" id="exp-date"></p>
+  </div>
+</div>
+
+<!-- Photo strip -->
+<div class="exp-photo-strip" id="exp-photo-strip"></div>
+
+<!-- Body -->
+<div class="exp-body">
+
+  <div class="exp-section reveal" id="exp-what-wrap">
+    <p class="exp-section-label">What it was</p>
+    <p class="exp-section-text" id="exp-what"></p>
+  </div>
+
+  <div class="exp-section reveal" id="exp-learned-wrap">
+    <p class="exp-section-label">What I learned</p>
+    <p class="exp-section-text" id="exp-learned"></p>
+  </div>
+
+  <div class="exp-section reveal" id="exp-result-wrap">
+    <p class="exp-section-label">Result</p>
+    <p class="exp-section-text" id="exp-result"></p>
+  </div>
+
+  <div class="exp-section reveal" id="exp-team-wrap">
+    <p class="exp-section-label">Team</p>
+    <p class="exp-section-text" id="exp-team"></p>
+  </div>
+
+  <div class="exp-section reveal" id="exp-links-wrap">
+    <p class="exp-section-label" id="exp-links-label">Links</p>
+    <div id="exp-links-list" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px;"></div>
+  </div>
+
+</div>
+
+<script src="data.js"></script>
+<script>
+// ── Theme ─────────────────────────────────────────────────
+function getTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved) return saved;
+  const hour = new Date().toLocaleString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', hour12: false });
+  return (parseInt(hour) >= 20 || parseInt(hour) < 6) ? 'dark' : 'light';
+}
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('theme-icon').textContent = t === 'dark' ? '○' : '◐';
+  localStorage.setItem('theme', t);
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+applyTheme(getTheme());
+
+// ── Load entry ────────────────────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+const entry = TIMELINE_DATA.find(e => e.id === id);
+
+if (!entry) {
+  document.body.innerHTML += '<p style="padding:120px 40px;color:var(--text2)">Entry not found. <a href="index.html">Go home</a></p>';
+} else {
+  document.title = entry.title + ' — David Raicu';
+
+  // Hero
+  if (entry.photo) {
+    const bg = document.getElementById('exp-hero-bg');
+    bg.src = entry.photo;
+    bg.alt = entry.title;
+  }
+  const badge = document.getElementById('exp-tag-badge');
+  badge.textContent = entry.tag;
+  badge.classList.add(entry.type);
+  document.getElementById('exp-title').textContent = entry.title;
+  document.getElementById('exp-date').textContent = entry.date;
+
+  // Photo strip
+  const strip = document.getElementById('exp-photo-strip');
+  if (entry.photos && entry.photos.length > 1) {
+    entry.photos.forEach(p => {
+      strip.innerHTML += `<img src="${p}" alt="${entry.title}" loading="lazy">`;
+    });
+  } else {
+    strip.style.display = 'none';
+  }
+
+  // Sections
+  const fp = entry.fullPage;
+
+  function fillSection(wrapId, fieldId, value) {
+    if (value) {
+      document.getElementById(fieldId).textContent = value;
+    } else {
+      document.getElementById(wrapId).style.display = 'none';
+    }
+  }
+
+  fillSection('exp-what-wrap',    'exp-what',    fp.what);
+  fillSection('exp-learned-wrap', 'exp-learned', fp.learned);
+  fillSection('exp-result-wrap',  'exp-result',  fp.result);
+  fillSection('exp-team-wrap',    'exp-team',    fp.team);
+
+  // Links
+  const linksList = document.getElementById('exp-links-list');
+  const allLinks = [...(fp.links || [])];
+  if (fp.slidesLink) {
+    allLinks.unshift({ label: 'View slides', url: fp.slidesLink });
+  }
+  if (allLinks.length > 0) {
+    allLinks.forEach(l => {
+      linksList.innerHTML += `<a href="${l.url}" target="_blank" rel="noopener" class="exp-slides-link">${l.label} ↗</a>`;
+    });
+  } else {
+    document.getElementById('exp-links-wrap').style.display = 'none';
+  }
+}
+
+// ── Scroll reveal ─────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
