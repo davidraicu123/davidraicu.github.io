@@ -383,3 +383,63 @@ sections.forEach(id => {
 </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>David Raicu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section id="hero" class="section">
+    <div class="hero-content">
+      <h1 class="hero-name">David Raicu</h1>
+      <p class="hero-sub">
+        BBA student at Laurier. CS minor. Curious about strategy, technology, and building things people care about.
+      </p>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <div class="timeline-body">
+      <div class="tl-spine"></div>
+    </div>
+  </section>
+
+  <script src="data.js"></script>
+
+  <script>
+    const container = document.querySelector(".timeline-body");
+
+    TIMELINE_DATA.forEach((entry, index) => {
+      const side = index % 2 === 0 ? "left" : "right";
+
+      const el = document.createElement("div");
+      el.className = `tl-entry ${side} type-${entry.type}`;
+
+      el.innerHTML = `
+        <div class="tl-dot"></div>
+
+        <a href="experience.html?id=${entry.id}" class="tl-card">
+          <img src="${entry.photo}" class="tl-card-img" />
+
+          <div class="tl-card-body">
+            <div class="tl-card-title">${entry.title}</div>
+            <div class="tl-card-desc">${entry.shortDesc}</div>
+            <div class="tl-card-cta">Read more →</div>
+          </div>
+        </a>
+      `;
+
+      container.appendChild(el);
+    });
+  </script>
+
+</body>
+</html>
