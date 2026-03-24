@@ -417,178 +417,121 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* ============================================================
-   TIMELINE
+   TIMELINE — NEW SYSTEM
    ============================================================ */
-#timeline { min-height: 100vh; padding: 100px 24px 80px; }
-
-.timeline-header {
-  max-width: 800px;
-  margin: 0 auto 60px;
-}
-.timeline-headline {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  margin-bottom: 24px;
-}
-.timeline-legend {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  color: var(--text3);
-}
-.legend-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-}
-
-/* The vertical line + entries */
-.timeline-body {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  padding-left: 40px;
-}
-
-.tl-spine {
-  position: absolute;
-  left: 8px;
-  top: 0; bottom: 0;
-  width: 1.5px;
-  background: var(--line);
-}
-
-.tl-year-marker {
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 24px;
-  padding-top: 16px;
-}
-
-.tl-entry {
-  display: flex;
-  margin-bottom: 36px;
-  position: relative;
-  align-items: flex-start;
-}
-
-.tl-entry:nth-child(odd) { padding-right: 55%; }
-.tl-entry:nth-child(even) { padding-left: 50%; padding-right: 0; }
-
-/* dot + tick on the spine */
-.tl-marker {
-  position: absolute;
-  left: -40px;
-  top: 18px;
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
-.tl-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1;
-}
-.tl-tick {
-  height: 1.5px;
-  width: 22px;
-  opacity: 0.45;
-}
-.tl-date-label {
-  position: absolute;
-  left: -40px;
-  top: 32px;
-  font-size: 0.62rem;
-  color: var(--text3);
-  white-space: nowrap;
-  letter-spacing: 0.04em;
-}
-
-/* Entry for even (right side) — flip marker */
-.tl-entry:nth-child(even) .tl-marker {
-  left: auto;
-  right: calc(100% - 40px + 10px);
-  flex-direction: row-reverse;
-}
-.tl-entry:nth-child(even) .tl-date-label {
-  left: auto;
-  right: calc(100% - 40px);
-  text-align: right;
-}
-
-/* Card */
-.tl-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  padding: 12px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-  text-decoration: none;
-  color: inherit;
-  width: 100%;
-}
-.tl-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-  border-color: var(--line);
-}
-
-.tl-card-img {
-  width: 60px; height: 60px;
-  border-radius: var(--radius-sm);
-  object-fit: cover;
-  flex-shrink: 0;
-  background: var(--bg2);
-}
-
-.tl-card-body { flex: 1; min-width: 0; }
-.tl-card-tag {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 4px;
-}
-.tl-card-title {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text);
-  line-height: 1.3;
-  margin-bottom: 6px;
-}
-.tl-card-cta {
-  font-size: 0.7rem;
-  color: var(--text3);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.tl-card-cta svg { transition: transform 0.2s; }
-.tl-card:hover .tl-card-cta svg { transform: translateX(3px); }
-
-/* Pro vs life colors */
-.type-pro .tl-dot { background: var(--accent-pro); }
-.type-pro .tl-tick { background: var(--accent-pro); }
-.type-pro .tl-card { border-left: 3px solid var(--accent-pro); }
-
-.type-life .tl-dot { background: var(--accent-life); }
-.type-life .tl-tick { background: var(--accent-life); }
-.type-life .tl-card { border-left: 3px solid var(--accent-life); }
+   #timeline {
+    padding: 120px 24px;
+  }
+  
+  /* Container */
+  .timeline-body {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  /* Center vertical line */
+  .tl-spine {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: var(--line);
+  }
+  
+  /* Entry row */
+  .tl-entry {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 80px;
+    position: relative;
+  }
+  
+  /* Left / Right positioning */
+  .tl-entry.left .tl-card {
+    grid-column: 1;
+    justify-self: end;
+  }
+  
+  .tl-entry.right .tl-card {
+    grid-column: 2;
+    justify-self: start;
+  }
+  
+  /* DOT (perfectly centered now) */
+  .tl-dot {
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text);
+    z-index: 2;
+  }
+  
+  /* CARD */
+  .tl-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  
+  .tl-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+  }
+  
+  /* IMAGE */
+  .tl-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  /* CONTENT */
+  .tl-card-body {
+    padding: 18px;
+  }
+  
+  .tl-card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .tl-card-desc {
+    font-size: 0.85rem;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  
+  /* CTA */
+  .tl-card-cta {
+    font-size: 0.75rem;
+    color: var(--text3);
+  }
+  
+  /* TYPE COLORS */
+  .type-pro .tl-dot { background: #006670; }
+  .type-life .tl-dot { background: #1FC08D; }
+  
+  /* OPTIONAL accent glow */
+  .type-pro .tl-card:hover {
+    box-shadow: 0 20px 50px rgba(0,102,112,0.15);
+  }
+  .type-life .tl-card:hover {
+    box-shadow: 0 20px 50px rgba(31,192,141,0.15);
+  }
 
 /* ============================================================
    PHOTOGRAPHY SECTION
